@@ -1,0 +1,30 @@
+{
+    "Producto":[
+        {
+            "id": 1,
+            "desscripcion": "pasta con tomate"
+        }
+    ],
+    "Mesas":[
+        {
+            "cod_mesa": 1,
+            "estado": 1
+        }
+    ],
+    "Comandas":[
+        {
+            "cod_comanda": 1,
+            "cod_camarero": 1,
+            "fecha_pedido":"2022-02-02",
+            "pagado": 1,
+            "cod_mesa": 1
+        }
+    ],
+    "LineaComanda":[
+        {
+            "id_comanda": 1,
+            "cantidad": 3,
+            "producto": "pasta carbonara"
+        }
+    ]
+}
