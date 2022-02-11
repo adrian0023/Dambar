@@ -11,9 +11,9 @@ class Mesas {
 }
 
 class Mesa {
-  int? codMesa;
+  String? codMesa;
   bool? estado;
-  Mesa(int codmesa, bool estado) {
+  Mesa(String codmesa, bool estado) {
     this.codMesa = codMesa;
     this.estado = estado;
   }

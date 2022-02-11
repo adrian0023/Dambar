@@ -19,9 +19,9 @@ class _mesasPageState extends State<mesasPage> {
               Image.asset('assets/img/LogoApp.PNG', fit: BoxFit.cover),
               Divider(),
               _crearInput(),
-              _tarjetasmesas(),
             ],
           ),
+          _tarjetasmesas(),
         ],
       ),
     );
@@ -29,10 +29,17 @@ class _mesasPageState extends State<mesasPage> {
 
   Widget _tarjetasmesas() {
     List<Mesa> mesas = [
-      Mesa(1, false),
-      Mesa(2, true),
-      Mesa(3, true),
-      Mesa(4, true),
+      Mesa("7", false),
+      Mesa("2", true),
+      Mesa("3", true),
+      Mesa("4", true),
+      Mesa("4", true),
+      Mesa("4", true),
+      Mesa("4", true),
+      Mesa("4", true),
+      Mesa("4", true),
+      Mesa("4", true),
+      Mesa("4", true),
     ];
     MaterialColor colorest = Colors.red;
     String codmesa = "";
@@ -41,11 +48,12 @@ class _mesasPageState extends State<mesasPage> {
         children: [
           Container(
             child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: mesas.length,
                 itemBuilder: (BuildContext context, int index) {
                   final est = mesas[index].estado;
-                  final cod = mesas[index].codMesa;
+                  var cod = mesas[index].codMesa;
                   if (est != null) {
                     if (est) {
                       colorest = Colors.red;
@@ -53,20 +61,26 @@ class _mesasPageState extends State<mesasPage> {
                       colorest = Colors.green;
                     }
                   }
-                  if (cod != null) {
-                    codmesa = cod.toString();
+                  if (cod == "") {
+                    codmesa = cod!;
                   }
 
                   return Container(
-                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                      height: 80,
-                      child: Card(
-                          elevation: 5,
-                          color: colorest,
-                          child: GestureDetector(
-                            onTap: () => Navigator.pushNamed(context, 'comanda',
-                                arguments: est),
-                          )));
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    height: 60,
+                    child: Card(
+                        elevation: 0,
+                        color: colorest,
+                        child: GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, 'comanda',
+                              arguments: codmesa),
+                          child: Text(
+                            "Mesa nº" + cod! + "e",
+                            style: TextStyle(fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ),
+                        )),
+                  );
                 }),
           ),
         ],
