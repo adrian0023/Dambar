@@ -16,13 +16,15 @@ class Comanda {
   int? codMesa;
   DateTime? fechaPedido;
   bool? pagado;
+  List<String>? lineaComanda;
 
   Comanda(
       {this.codComanda,
       this.codCamarero,
       this.codMesa,
       this.fechaPedido,
-      this.pagado});
+      this.pagado,
+      this.lineaComanda});
 
   Comanda.fromJsonMap(Map<String, dynamic> json) {
     codComanda = json['id'];
@@ -30,5 +32,6 @@ class Comanda {
     codMesa = json['foto'];
     fechaPedido = json['nombre'];
     pagado = json['price'];
+    lineaComanda = json['lineaComanda'];
   }
 }

@@ -10,11 +10,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'DamBar',
-<<<<<<< Updated upstream
         initialRoute: 'comanda',
-=======
-        initialRoute: 'mesas',
->>>>>>> Stashed changes
+        //initialRoute: 'mesas',
         routes: {
           'mesas': (BuildContext context) => mesasPage(),
           'comanda': (BuildContext context) => comandaPage()

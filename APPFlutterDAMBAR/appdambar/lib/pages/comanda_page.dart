@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:appdambar/models/comanda_model.dart';
+import 'package:appdambar/models/producto_model.dart';
 import 'package:flutter/material.dart';
 
 class comandaPage extends StatefulWidget {
@@ -18,19 +22,12 @@ class _comandaPageState extends State<comandaPage> {
           _numeroMesa(),
           Divider(),
           _productosMesa(),
-          _productosMesa(),
-          _productosMesa(),
-          _productosMesa(),
-          _productosMesa(),
-          _productosMesa(),
-          _productosMesa(),
-          _productosMesa(),
           Divider(),
           _botonAnyadirProductos(),
           Divider(),
           _botonEliminarProducto(),
           Divider(),
-          _botonAnyadirProductos(),
+          _botonCuenta(),
         ],
       ),
     );
@@ -43,11 +40,34 @@ class _comandaPageState extends State<comandaPage> {
   }
 
   Widget _numeroMesa() {
-    return (Text('Mesa: Nº1'));
+    Comanda comanda = Comanda();
+    comanda.codMesa = 3;
+    int? codMesa = comanda.codMesa;
+    return (Text('Mesa: $codMesa'));
   }
 
   Widget _productosMesa() {
-    return (Text('Productos'));
+    Comanda comanda = Comanda();
+    List<String> productos = ['Producto 1', 'Producto 2'];
+    comanda.lineaComanda = productos;
+    productos += ['Producto 3', 'Producto 4'];
+
+    comanda.lineaComanda = productos;
+
+    return ListView.builder(
+      shrinkWrap: true,
+      // Deja que ListView sepa cuántos elementos necesita para construir
+      itemCount: comanda.lineaComanda!.length,
+      // Proporciona una función de constructor. Vamos a
+      // convertir cada elemento en un Widget basado en el tipo de elemento que es.
+      itemBuilder: (context, index) {
+        return Card(
+          child: Column(
+            children: [Text(comanda.lineaComanda![index])],
+          ),
+        );
+      },
+    );
   }
 
   Widget _botonAnyadirProductos() {
