@@ -2,15 +2,14 @@ import 'dart:ffi';
 
 import 'package:appdambar/models/comanda_model.dart';
 import 'package:appdambar/models/producto_model.dart';
-import 'package:appdambar/pages/productos_page.dart';
 import 'package:flutter/material.dart';
 
-class comandaPage extends StatefulWidget {
+class productoPage extends StatefulWidget {
   @override
-  _comandaPageState createState() => _comandaPageState();
+  _productoPageState createState() => _productoPageState();
 }
 
-class _comandaPageState extends State<comandaPage> {
+class _productoPageState extends State<productoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,16 +51,6 @@ class _comandaPageState extends State<comandaPage> {
     List<String> productos = ['Producto 1', 'Producto 2'];
     comanda.lineaComanda = productos;
     productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
-    productos += ['Producto 3', 'Producto 4'];
 
     comanda.lineaComanda = productos;
 
@@ -74,18 +63,8 @@ class _comandaPageState extends State<comandaPage> {
       // convertir cada elemento en un Widget basado en el tipo de elemento que es.
       itemBuilder: (context, index) {
         return Card(
-          child: InkWell(
-            onTap: () {
-              List.generate(comanda.lineaComanda!.length, (index) => Comanda());
-            },
-            child: Column(
-              children: [
-                Text(
-                  comanda.lineaComanda![index],
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          child: Column(
+            children: [Text(comanda.lineaComanda![index])],
           ),
         );
       },
@@ -100,10 +79,7 @@ class _comandaPageState extends State<comandaPage> {
       splashColor: Colors.blueAccent,
       color: Colors.amber,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => productoPage()),
-        );
+        print("anyadimos producto");
       },
     );
   }
