@@ -13,21 +13,32 @@ class Productos {
 }
 
 class Producto {
-  String? id;
+  int? id;
   String? descripcion;
   String? foto;
   String? nombre;
-  Float? precio;
+  double? precio;
   int? stock;
   String? tipo;
-  Producto(
+  /*Producto(
       {this.id,
       this.descripcion,
       this.foto,
       this.nombre,
       this.precio,
       this.stock,
-      this.tipo});
+      this.tipo});*/
+
+  Producto(int id, String descripcion, String foto, String nombre,
+      double precio, int stock, String tipo) {
+    this.id = id;
+    this.descripcion = descripcion;
+    this.foto = foto;
+    this.nombre = nombre;
+    this.precio = precio;
+    this.stock = stock;
+    this.tipo = tipo;
+  }
 
   Producto.fromJsonMap(Map<String, dynamic> json) {
     id = json['id'];

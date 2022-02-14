@@ -11,12 +11,9 @@ class Mesas {
 }
 
 class Mesa {
-  String? codMesa;
+  int? codMesa;
   bool? estado;
-  Mesa(String codmesa, bool estado) {
-    this.codMesa = codMesa;
-    this.estado = estado;
-  }
+  Mesa({this.codMesa, this.estado});
 
   Mesa.fromJsonMap(Map<String, dynamic> json) {
     codMesa = json['id'];
