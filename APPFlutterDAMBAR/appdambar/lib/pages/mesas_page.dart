@@ -1,5 +1,3 @@
-import 'package:appdambar/models/mesa_model.dart';
-import 'package:appdambar/models/producto_model.dart';
 import 'package:appdambar/providers/bar_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +8,7 @@ class mesasPage extends StatefulWidget {
 
 class _mesasPageState extends State<mesasPage> {
   @override
+  late List<dynamic> locmesas;
   var mesa = "";
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +26,7 @@ class _mesasPageState extends State<mesasPage> {
             ],
           ),
           Divider(),
-          _productosagotados()
+          _crearProductos()
         ],
       ),
     );
@@ -49,9 +48,26 @@ class _mesasPageState extends State<mesasPage> {
         });
   }
 
+  Widget _crearProductos() {
+    final barprovider = BarProvider();
+
+    return FutureBuilder(
+        future: barprovider.getinfoProductoAgotado(),
+        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            return _productosagotados(snapshot.data!);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
+  }
+
   Widget _tarjetasmesas(List<dynamic> mesas) {
     MaterialColor colorest = Colors.red;
     String codmesa = "";
+    locmesas = mesas;
     return Container(
       child: Column(
         children: [
@@ -62,14 +78,12 @@ class _mesasPageState extends State<mesasPage> {
                 itemCount: mesas.length,
                 itemBuilder: (BuildContext context, int index) {
                   final est = mesas[index].estado.toString();
-                  final cod = mesas[index].codMesa.toString();
-                  print(est);
-                  print(cod);
+                  String cod = mesas[index].codMesa.toString();
                   if (est != null) {
-                    if (est == true) {
+                    if (est == "true") {
                       colorest = Colors.red;
                     }
-                    if (est == false) {
+                    if (est == "false") {
                       colorest = Colors.green;
                     }
                   }
@@ -82,7 +96,7 @@ class _mesasPageState extends State<mesasPage> {
                         color: colorest,
                         child: GestureDetector(
                           onTap: () => Navigator.pushNamed(context, 'comanda',
-                              arguments: codmesa),
+                              arguments: mesas[index]),
                           child: Text(
                             "Mesa nº" + cod,
                             style: TextStyle(fontSize: 20),
@@ -97,22 +111,12 @@ class _mesasPageState extends State<mesasPage> {
     );
   }
 
-  Widget _productosagotados() {
-    List<Producto> productos = [
-      Producto(1, "plato de pasta", "httpgoogle.com/", "Pasta bolognesa1", 20.2,
-          0, "Primer palto"),
-      Producto(1, "plato de pasta", "httpgoogle.com/", "Pasta bolognesa2", 20.2,
-          0, "Primer palto"),
-      Producto(1, "plato de pasta", "httpgoogle.com/", "Pasta bolognesa3", 20.2,
-          0, "Primer palto"),
-      Producto(1, "plato de pasta", "httpgoogle.com/", "Pasta bolognesa4", 20.2,
-          0, "Primer palto")
-    ];
+  Widget _productosagotados(List<dynamic> productos) {
     return Container(
       child: Column(
         children: [
           Text("Productos no disponibles",
-              style: TextStyle(color: Colors.black)),
+              style: TextStyle(color: Colors.black, fontSize: 20)),
           Container(
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -120,16 +124,31 @@ class _mesasPageState extends State<mesasPage> {
                 itemCount: productos.length,
                 itemBuilder: (BuildContext context, int index) {
                   final nomprod = productos[index].nombre;
+                  final imgprod = productos[index].foto;
                   return Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       height: 100,
-                      child: Card(
-                        elevation: 0,
-                        color: Colors.blue,
-                        child: Text(nomprod!,
-                            style: TextStyle(fontSize: 20),
+                      child: Row(children: <Widget>[
+                        Text(nomprod!,
+                            style: TextStyle(fontSize: 18),
                             textAlign: TextAlign.left),
-                      ));
+                        Expanded(
+                          child: new Container(
+                              margin: const EdgeInsets.only(
+                                  left: 15.0, right: 10.0),
+                              child: Divider(
+                                color: Colors.white,
+                                height: 10,
+                              )),
+                        ),
+                        Image(
+                          image: NetworkImage(imgprod),
+                          alignment: Alignment.topRight,
+                          fit: BoxFit.cover,
+                          width: 150,
+                          height: 100,
+                        ),
+                      ]));
                 }),
           )
         ],
@@ -179,6 +198,7 @@ class _mesasPageState extends State<mesasPage> {
         child: Text("Ver mesa"),
         splashColor: Colors.blueAccent,
         color: Colors.amber,
-        onPressed: () => Navigator.pushNamed(context, 'comanda'));
+        onPressed: () => Navigator.pushNamed(context, 'comanda',
+            arguments: locmesas[int.parse(mesa)]));
   }
 }

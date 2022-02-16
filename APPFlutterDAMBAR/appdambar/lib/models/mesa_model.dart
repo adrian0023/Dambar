@@ -16,7 +16,7 @@ class Mesa {
   Mesa({this.codMesa, this.estado});
 
   Mesa.fromJsonMap(Map<String, dynamic> json) {
-    codMesa = json['id'];
-    estado = json['descripcion'];
+    codMesa = json['codMesa'];
+    estado = json['estado'];
   }
 }
