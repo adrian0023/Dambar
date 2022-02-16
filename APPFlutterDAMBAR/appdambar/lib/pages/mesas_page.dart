@@ -1,3 +1,4 @@
+import 'package:appdambar/models/comanda_model.dart';
 import 'package:appdambar/providers/bar_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -69,7 +70,6 @@ class _mesasPageState extends State<mesasPage> {
 //Crea las tarjetas de las tablas
   Widget _tarjetasmesas(List<dynamic> mesas) {
     MaterialColor colorest = Colors.red;
-    print(mesas[2]);
     String codmesa = "";
     locmesas = mesas;
     return Container(
@@ -83,6 +83,7 @@ class _mesasPageState extends State<mesasPage> {
                 itemBuilder: (BuildContext context, int index) {
                   final est = mesas[index].estado.toString();
                   String cod = mesas[index].codMesa.toString();
+
                   if (est != null) {
                     if (est == "true") {
                       colorest = Colors.red;
@@ -130,6 +131,7 @@ class _mesasPageState extends State<mesasPage> {
                 itemBuilder: (BuildContext context, int index) {
                   final nomprod = productos[index].nombre;
                   final imgprod = productos[index].foto;
+
                   return Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       height: 100,

@@ -1,5 +1,6 @@
 import 'package:appdambar/models/lineacomanda_model.dart';
 import 'package:appdambar/models/mesa_model.dart';
+import 'package:flutter/foundation.dart';
 
 import 'mesa_model.dart';
 import 'mesa_model.dart';
@@ -25,12 +26,12 @@ class Comanda {
   List<LineaComanda>? lineaComanda;
 
   Comanda(
-      {required this.codComanda,
-      required this.codCamarero,
-      required this.mesa,
-      required this.fechaPedido,
-      required this.pagado,
-      required this.lineaComanda});
+      {this.codComanda,
+      this.codCamarero,
+      this.mesa,
+      this.fechaPedido,
+      this.pagado,
+      this.lineaComanda});
 
   Comanda.fromJsonMap(Map<String, dynamic> json) {
     codComanda = json['codComanda'];
@@ -39,5 +40,15 @@ class Comanda {
     fechaPedido = json['nombre'];
     pagado = json['pagado'];
     lineaComanda = json['lineas'];
+  }
+
+  factory Comanda.fromJson(dynamic json) {
+    return Comanda(
+        codComanda: json['codComanda'],
+        codCamarero: json['camarero'],
+        mesa: json['mesa'],
+        fechaPedido: json['nombre'],
+        pagado: json['pagado'],
+        lineaComanda: json['lineas']);
   }
 }

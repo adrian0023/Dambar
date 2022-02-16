@@ -21,6 +21,9 @@ class Mesa {
   Mesa.fromJsonMap(Map<String, dynamic> json) {
     codMesa = json['codMesa'];
     estado = json['estado'];
-    comandas = json['comandas'];
+    if (json['comandas'] != null) {
+      comandas =
+          (Comandas.fromJsonList(json['comandas']).items) as List<Comanda>?;
+    }
   }
 }
