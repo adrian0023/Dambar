@@ -1,3 +1,9 @@
+import 'package:appdambar/models/lineacomanda_model.dart';
+import 'package:appdambar/models/mesa_model.dart';
+
+import 'mesa_model.dart';
+import 'mesa_model.dart';
+
 class Comandas {
   List<Comanda> items = [];
   Comandas();
@@ -13,26 +19,25 @@ class Comandas {
 class Comanda {
   int? codComanda;
   int? codCamarero;
-  int? codMesa;
+  Mesa? mesa;
   DateTime? fechaPedido;
   bool? pagado;
-  List<String>? lineaComanda;
+  List<LineaComanda>? lineaComanda;
 
-  Comanda( 
-      {
-      required this.codComanda,
+  Comanda(
+      {required this.codComanda,
       required this.codCamarero,
-      required this.codMesa,
+      required this.mesa,
       required this.fechaPedido,
       required this.pagado,
       required this.lineaComanda});
 
   Comanda.fromJsonMap(Map<String, dynamic> json) {
-    codComanda = json['id'];
-    codCamarero = json['descripcion'];
-    codMesa = json['foto'];
+    codComanda = json['codComanda'];
+    codCamarero = json['camarero'];
+    mesa = json['mesa'];
     fechaPedido = json['nombre'];
-    pagado = json['price'];
-    lineaComanda = json['lineaComanda'];
+    pagado = json['pagado'];
+    lineaComanda = json['lineas'];
   }
 }

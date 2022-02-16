@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:appdambar/models/comanda_model.dart';
 import 'package:appdambar/models/producto_model.dart';
 import 'package:flutter/material.dart';
-
+/*
 class productoPage extends StatefulWidget {
   @override
   _productoPageState createState() => _productoPageState();
@@ -108,3 +108,4 @@ class _productoPageState extends State<productoPage> {
     );
   }
 }
+*/

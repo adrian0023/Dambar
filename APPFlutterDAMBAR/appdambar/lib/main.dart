@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         initialRoute: 'mesas',
         routes: {
           'mesas': (BuildContext context) => mesasPage(),
-          'comanda': (BuildContext context) => comandaPage()
+          //'comanda': (BuildContext context) => comandaPage()
         });
   }
 }

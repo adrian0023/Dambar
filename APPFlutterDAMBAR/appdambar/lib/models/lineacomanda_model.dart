@@ -1,3 +1,4 @@
+import 'package:appdambar/models/producto_model.dart';
 
 class LineaComandas {
   List<LineaComanda> items = [];
@@ -13,17 +14,14 @@ class LineaComandas {
 
 class LineaComanda {
   int? codComanda;
-  late String producto;
+  int? cantidad;
+  Producto? producto;
 
-  LineaComanda( 
-      {
-      required this.codComanda,
-      required this.producto
-      }
-      );
+  LineaComanda({this.codComanda, this.cantidad, this.producto});
 
   LineaComanda.fromJsonMap(Map<String, dynamic> json) {
     codComanda = json['id'];
-    String producto = json['producto'];
+    producto = json['productos'];
+    cantidad = json['cantidad'];
   }
 }

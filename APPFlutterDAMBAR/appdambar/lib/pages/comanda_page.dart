@@ -4,36 +4,24 @@ import 'dart:ffi';
 
 import 'package:appdambar/models/comanda_model.dart';
 import 'package:appdambar/models/lineacomanda_model.dart';
+import 'package:appdambar/models/mesa_model.dart';
 import 'package:appdambar/models/producto_model.dart';
 import 'package:appdambar/pages/productos_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+/*
 class comandaPage extends StatefulWidget {
   @override
   _comandaPageState createState() => _comandaPageState();
 }
 
 class _comandaPageState extends State<comandaPage> {
-  Comanda comanda = Comanda(
-      codCamarero: 1,
-      codComanda: 5,
-      codMesa: 3,
-      fechaPedido: null,
-      lineaComanda: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4'],
-      pagado: false);
-  List<LineaComanda> linCom = [
-    LineaComanda(codComanda: 1, producto: 'CocaCola'),
-    LineaComanda(codComanda: 2, producto: 'Mahou'),
-    LineaComanda(codComanda: 1, producto: 'Jamon y queso'),
-    LineaComanda(codComanda: 2, producto: 'Caña'),
-    LineaComanda(codComanda: 1, producto: 'Tortilla'),
-    LineaComanda(codComanda: 2, producto: 'Cafe'),
-    LineaComanda(codComanda: 3, producto: 'Fanta')
-  ];
-
   @override
   Widget build(BuildContext context) {
+    //inicializacion de las partes de la mesa
+    Mesa mesa = ModalRoute.of(context)!.settings.arguments as Mesa;
+    List<Comanda>? comanda = mesa.comandas;
+    List<LineaComanda>? linCom = comanda![1].lineaComanda;
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -140,3 +128,4 @@ class _comandaPageState extends State<comandaPage> {
     );
   }
 }
+*/

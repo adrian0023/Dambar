@@ -32,6 +32,7 @@ class _mesasPageState extends State<mesasPage> {
     );
   }
 
+//Recoge la informacion de la mesa desde la api
   Widget _crearMesas() {
     final barprovider = BarProvider();
 
@@ -48,6 +49,7 @@ class _mesasPageState extends State<mesasPage> {
         });
   }
 
+//Recoge la informacion de los productos desde la api
   Widget _crearProductos() {
     final barprovider = BarProvider();
 
@@ -64,8 +66,10 @@ class _mesasPageState extends State<mesasPage> {
         });
   }
 
+//Crea las tarjetas de las tablas
   Widget _tarjetasmesas(List<dynamic> mesas) {
     MaterialColor colorest = Colors.red;
+    print(mesas[2]);
     String codmesa = "";
     locmesas = mesas;
     return Container(
@@ -111,6 +115,7 @@ class _mesasPageState extends State<mesasPage> {
     );
   }
 
+//Crea las filas de los productos agotados
   Widget _productosagotados(List<dynamic> productos) {
     return Container(
       child: Column(
@@ -156,6 +161,7 @@ class _mesasPageState extends State<mesasPage> {
     );
   }
 
+//Cuadro de texto para busqueda de mesas
   Widget _crearInput() {
     return TextField(
       textCapitalization: TextCapitalization.sentences,
@@ -185,12 +191,14 @@ class _mesasPageState extends State<mesasPage> {
     );
   }
 
+//banner con logo del bar
   Widget _banner() {
     return (Image(
       image: AssetImage('assets/img/LogoApp.PNG'),
     ));
   }
 
+//boton para acceso a comanda de la mesa
   Widget _botonVerMesa() {
     // ignore: deprecated_member_use
     return FlatButton(
