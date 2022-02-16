@@ -10,6 +10,13 @@ class productoPage extends StatefulWidget {
 }
 
 class _productoPageState extends State<productoPage> {
+  Comanda comanda = Comanda(
+      codCamarero: 1,
+      codComanda: 5,
+      codMesa: 3,
+      fechaPedido: null,
+      lineaComanda: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4'],
+      pagado: false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,20 +47,11 @@ class _productoPageState extends State<productoPage> {
   }
 
   Widget _numeroMesa() {
-    Comanda comanda = Comanda();
-    comanda.codMesa = 3;
     int? codMesa = comanda.codMesa;
     return (Text('Mesa: $codMesa'));
   }
 
   Widget _productosMesa() {
-    Comanda comanda = Comanda();
-    List<String> productos = ['Producto 1', 'Producto 2'];
-    comanda.lineaComanda = productos;
-    productos += ['Producto 3', 'Producto 4'];
-
-    comanda.lineaComanda = productos;
-
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,

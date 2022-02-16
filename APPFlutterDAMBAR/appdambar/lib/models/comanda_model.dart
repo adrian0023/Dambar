@@ -18,13 +18,14 @@ class Comanda {
   bool? pagado;
   List<String>? lineaComanda;
 
-  Comanda(
-      {this.codComanda,
-      this.codCamarero,
-      this.codMesa,
-      this.fechaPedido,
-      this.pagado,
-      this.lineaComanda});
+  Comanda( 
+      {
+      required this.codComanda,
+      required this.codCamarero,
+      required this.codMesa,
+      required this.fechaPedido,
+      required this.pagado,
+      required this.lineaComanda});
 
   Comanda.fromJsonMap(Map<String, dynamic> json) {
     codComanda = json['id'];
