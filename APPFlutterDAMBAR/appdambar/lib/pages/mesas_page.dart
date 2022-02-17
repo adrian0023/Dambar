@@ -83,7 +83,10 @@ class _mesasPageState extends State<mesasPage> {
                 itemBuilder: (BuildContext context, int index) {
                   final est = mesas[index].estado.toString();
                   String cod = mesas[index].codMesa.toString();
-
+                  final comandasloc = mesas[index].getcomandas();
+                  for (var i = 0; i < comandasloc.length; i++) {
+                    print(comandasloc[i].getcodComanda().toString());
+                  }
                   if (est != null) {
                     if (est == "true") {
                       colorest = Colors.red;

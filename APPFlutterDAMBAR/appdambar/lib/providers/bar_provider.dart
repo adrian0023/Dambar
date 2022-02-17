@@ -14,7 +14,7 @@ class BarProvider {
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
 
-    print(decodedData);
+    //print(decodedData);
 
     final listaMesas = Mesas.fromJsonList(decodedData);
 

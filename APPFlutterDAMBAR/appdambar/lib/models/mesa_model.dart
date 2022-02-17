@@ -26,4 +26,8 @@ class Mesa {
           (Comandas.fromJsonList(json['comandas']).items) as List<Comanda>?;
     }
   }
+
+  List<Comanda>? getcomandas() {
+    return this.comandas;
+  }
 }

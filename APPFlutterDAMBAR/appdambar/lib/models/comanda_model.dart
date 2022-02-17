@@ -20,10 +20,10 @@ class Comandas {
 class Comanda {
   int? codComanda;
   int? codCamarero;
-  Mesa? mesa;
+  dynamic mesa;
   DateTime? fechaPedido;
   bool? pagado;
-  List<LineaComanda>? lineaComanda;
+  List<dynamic>? lineaComanda;
 
   Comanda(
       {this.codComanda,
@@ -50,5 +50,9 @@ class Comanda {
         fechaPedido: json['nombre'],
         pagado: json['pagado'],
         lineaComanda: json['lineas']);
+  }
+
+  int? getcodComanda() {
+    return this.codComanda;
   }
 }
