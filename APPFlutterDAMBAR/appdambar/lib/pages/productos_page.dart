@@ -2,110 +2,142 @@ import 'dart:ffi';
 
 import 'package:appdambar/models/comanda_model.dart';
 import 'package:appdambar/models/producto_model.dart';
+import 'package:appdambar/providers/bar_provider.dart';
 import 'package:flutter/material.dart';
-/*
+
 class productoPage extends StatefulWidget {
   @override
   _productoPageState createState() => _productoPageState();
 }
 
 class _productoPageState extends State<productoPage> {
-  Comanda comanda = Comanda(
-      codCamarero: 1,
-      codComanda: 5,
-      codMesa: 3,
-      fechaPedido: null,
-      lineaComanda: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4'],
-      pagado: false);
-  @override
+
+  List<Producto> productos = [];
+  List<Producto> productosSelec = [];
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-        children: [
-          Divider(),
-          _banner(),
-          Divider(),
-          _numeroMesa(),
-          Divider(),
-          _productosMesa(),
-          Divider(),
-          _botonAnyadirProductos(),
-          Divider(),
-          _botonEliminarProducto(),
-          Divider(),
-          _botonCuenta(),
-        ],
-      ),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+          children: [
+            Divider(),
+            Column(
+              children: [
+                _crearProductos()
+              ],
+            ),
+          ]),
     );
   }
 
+  //banner con logo del bar
   Widget _banner() {
     return (Image(
       image: AssetImage('assets/img/LogoApp.PNG'),
     ));
   }
 
-  Widget _numeroMesa() {
-    int? codMesa = comanda.codMesa;
-    return (Text('Mesa: $codMesa'));
+  Widget _crearProductos() {
+    final barprovider = BarProvider();
+
+    return FutureBuilder(
+        future: barprovider.getinfoProductoAgotado(),
+        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            return listaProductos(snapshot.data!);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 
-  Widget _productosMesa() {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      // Deja que ListView sepa cuántos elementos necesita para construir
-      itemCount: comanda.lineaComanda!.length,
-      // Proporciona una función de constructor. Vamos a
-      // convertir cada elemento en un Widget basado en el tipo de elemento que es.
-      itemBuilder: (context, index) {
-        return Card(
+  Widget listaProductos(List<dynamic> productos){
+return Container(
           child: Column(
-            children: [Text(comanda.lineaComanda![index])],
+            children: [
+              Expanded(
+                child: ListView.builder(
+                    itemCount: productos.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      // return item
+                      return ProductotItem(
+                        productos[index].id,
+                        productos[index].descripcion,
+                        productos[index].foto,
+                        productos[index].nombre,
+                        productos[index].precio,
+                        productos[index].stock,
+                        productos[index].tipo,
+                        productos[index].pressed!,
+                        index,
+                      );
+                    }),
+              ),
+              productosSelec.length > 0 ? Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                  vertical: 10,
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: RaisedButton(
+                    color: Colors.green[700],
+                    child: Text(
+                      "Delete (${productosSelec.length})",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    onPressed: () {
+                      print("Delete List Lenght: ${productosSelec.length}");
+                    },
+                  ),
+                ),
+              ): Container(),
+            ],
           ),
         );
-      },
-    );
   }
 
-  Widget _botonAnyadirProductos() {
-    // ignore: deprecated_member_use
-    return FlatButton(
-      disabledColor: Colors.blueAccent,
-      child: Text("Añadir productos"),
-      splashColor: Colors.blueAccent,
-      color: Colors.amber,
-      onPressed: () {
-        print("anyadimos producto");
+  Widget ProductotItem(int? id, String? descripcion, String? foto, String? nombre, double? precio, int? stock, String? tipo, bool pressed, int index) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: Colors.green[700],
+        child: Icon(
+          Icons.person_outline_outlined,
+          color: Colors.white,
+        ),
+      ),
+      title: Text(
+        nombre!,
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      subtitle: Text(descripcion!),
+      trailing: pressed
+          ? Icon(
+              Icons.check_circle,
+              color: Colors.green[700],
+            )
+          : Icon(
+              Icons.check_circle_outline,
+              color: Colors.grey,
+            ),
+      onTap: () {
+        setState(() {
+          productos[index].pressed = productos[index].pressed;
+          if (productos[index].pressed == true) {
+            productosSelec.add(Producto(/* id,  descripcion,  foto,  nombre,  precio,  stock,  tipo, true*/));
+          } else if (productos[index].pressed == false) {
+            productosSelec
+                .removeWhere((element) => element.nombre == productos[index].nombre);
+          }
+        });
       },
     );
-  }
 
-  Widget _botonEliminarProducto() {
-    // ignore: deprecated_member_use
-    return FlatButton(
-      disabledColor: Colors.blueAccent,
-      child: Text("Eliminar producto"),
-      splashColor: Colors.blueAccent,
-      color: Colors.amber,
-      onPressed: () {
-        print("Eliminamos");
-      },
-    );
-  }
-
-  Widget _botonCuenta() {
-    // ignore: deprecated_member_use
-    return FlatButton(
-      disabledColor: Colors.blueAccent,
-      child: Text("Cuenta"),
-      splashColor: Colors.blueAccent,
-      color: Colors.amber,
-      onPressed: () {
-        print("Enviamos cuenta");
-      },
-    );
-  }
 }
-*/
+}

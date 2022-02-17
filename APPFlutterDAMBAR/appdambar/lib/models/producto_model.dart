@@ -20,6 +20,7 @@ class Producto {
   double? precio;
   int? stock;
   String? tipo;
+  bool? pressed = false;
   Producto(
       {this.id,
       this.descripcion,

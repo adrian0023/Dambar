@@ -151,6 +151,7 @@ class _mesasPageState extends State<mesasPage> {
                                 height: 10,
                               )),
                         ),
+                        
                         Image(
                           image: NetworkImage(imgprod),
                           alignment: Alignment.topRight,
