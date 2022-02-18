@@ -55,4 +55,8 @@ class Comanda {
   int? getcodComanda() {
     return this.codComanda;
   }
+
+  List<dynamic>? getlincomanda() {
+    return this.lineaComanda;
+  }
 }

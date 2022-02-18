@@ -9,7 +9,7 @@ import 'package:appdambar/models/producto_model.dart';
 import 'package:appdambar/pages/productos_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-/*
+
 class comandaPage extends StatefulWidget {
   @override
   _comandaPageState createState() => _comandaPageState();
@@ -21,7 +21,6 @@ class _comandaPageState extends State<comandaPage> {
     //inicializacion de las partes de la mesa
     Mesa mesa = ModalRoute.of(context)!.settings.arguments as Mesa;
     List<Comanda>? comanda = mesa.comandas;
-    List<LineaComanda>? linCom = comanda![1].lineaComanda;
     return Scaffold(
       appBar: AppBar(
         elevation: 10,
@@ -34,51 +33,7 @@ class _comandaPageState extends State<comandaPage> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-              itemCount: linCom.length,
-              itemBuilder: (context, index) {
-                return Slidable(
-                  key: ValueKey(index),
-                  startActionPane: ActionPane(
-                    dismissible: DismissiblePane(
-                      onDismissed: () {},
-                    ),
-                    motion: ScrollMotion(),
-                    children: [
-                      SlidableAction(
-                        backgroundColor: Colors.red,
-                        label: 'Eliminar',
-                        icon: Icons.delete,
-                        onPressed: (context) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Eliminado el producto ${linCom[index].producto}',
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        linCom[index].producto,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          height: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
+          Expanded(),
           RaisedButton(
             disabledColor: Colors.blueAccent,
             child: Text("Añadir productos"),
@@ -111,9 +66,9 @@ class _comandaPageState extends State<comandaPage> {
     ));
   }
 
-  Widget _numeroMesa() {
+  /*Widget _numeroMesa() {
     return (Text('Mesa: ${comanda.codMesa}'));
-  }
+  }*/
 
   Widget _botonCuenta() {
     // ignore: deprecated_member_use
@@ -128,4 +83,3 @@ class _comandaPageState extends State<comandaPage> {
     );
   }
 }
-*/

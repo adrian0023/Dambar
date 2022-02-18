@@ -1,6 +1,5 @@
 import 'dart:ffi';
 
-import 'package:appdambar/models/comanda_model.dart';
 import 'package:appdambar/models/producto_model.dart';
 import 'package:appdambar/providers/bar_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ class productoPage extends StatefulWidget {
 }
 
 class _productoPageState extends State<productoPage> {
-
   List<Producto> productos = [];
   List<Producto> productosSelec = [];
   Widget build(BuildContext context) {
@@ -21,9 +19,7 @@ class _productoPageState extends State<productoPage> {
           children: [
             Divider(),
             Column(
-              children: [
-                _crearProductos()
-              ],
+              children: [_banner(), _crearProductos()],
             ),
           ]),
     );
@@ -52,56 +48,68 @@ class _productoPageState extends State<productoPage> {
         });
   }
 
-  Widget listaProductos(List<dynamic> productos){
-return Container(
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    itemCount: productos.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      // return item
-                      return ProductotItem(
-                        productos[index].id,
-                        productos[index].descripcion,
-                        productos[index].foto,
-                        productos[index].nombre,
-                        productos[index].precio,
-                        productos[index].stock,
-                        productos[index].tipo,
-                        productos[index].pressed!,
-                        index,
-                      );
-                    }),
-              ),
-              productosSelec.length > 0 ? Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 25,
-                  vertical: 10,
-                ),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: RaisedButton(
-                    color: Colors.green[700],
-                    child: Text(
-                      "Delete (${productosSelec.length})",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                    onPressed: () {
-                      print("Delete List Lenght: ${productosSelec.length}");
-                    },
-                  ),
-                ),
-              ): Container(),
-            ],
+  Widget listaProductos(List<dynamic> productos) {
+    return Container(
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+                itemCount: productos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // return item
+                  return ProductotItem(
+                    productos[index].id,
+                    productos[index].descripcion,
+                    productos[index].foto,
+                    productos[index].nombre,
+                    productos[index].precio,
+                    productos[index].stock,
+                    productos[index].tipo,
+                    productos[index].pressed!,
+                    index,
+                  );
+                }),
           ),
-        );
+          productosSelec.length > 0
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25,
+                    vertical: 10,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    // ignore: deprecated_member_use
+                    child: RaisedButton(
+                      color: Colors.green[700],
+                      child: Text(
+                        "Delete (${productosSelec.length})",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      onPressed: () {
+                        print("Delete List Lenght: ${productosSelec.length}");
+                      },
+                    ),
+                  ),
+                )
+              : Container(),
+        ],
+      ),
+    );
   }
 
-  Widget ProductotItem(int? id, String? descripcion, String? foto, String? nombre, double? precio, int? stock, String? tipo, bool pressed, int index) {
+  Widget ProductotItem(
+      int? id,
+      String? descripcion,
+      String? foto,
+      String? nombre,
+      double? precio,
+      int? stock,
+      String? tipo,
+      bool pressed,
+      int index) {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.green[700],
@@ -130,14 +138,14 @@ return Container(
         setState(() {
           productos[index].pressed = productos[index].pressed;
           if (productos[index].pressed == true) {
-            productosSelec.add(Producto(/* id,  descripcion,  foto,  nombre,  precio,  stock,  tipo, true*/));
+            productosSelec.add(Producto(
+                /* id,  descripcion,  foto,  nombre,  precio,  stock,  tipo, true*/));
           } else if (productos[index].pressed == false) {
-            productosSelec
-                .removeWhere((element) => element.nombre == productos[index].nombre);
+            productosSelec.removeWhere(
+                (element) => element.nombre == productos[index].nombre);
           }
         });
       },
     );
-
-}
+  }
 }

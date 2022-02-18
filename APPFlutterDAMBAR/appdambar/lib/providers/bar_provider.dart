@@ -6,7 +6,7 @@ import 'package:appdambar/models/producto_model.dart';
 import 'package:http/http.dart' as http;
 
 class BarProvider {
-  final String urlmain = '192.168.1.12:8080';
+  final String urlmain = '192.168.1.14:8080';
 
   Future<List<Mesa>> getinfoMesas() async {
     final String url_peticion = '/dambar/mesas/';
