@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:appdambar/models/comanda_model.dart';
 import 'package:appdambar/models/mesa_model.dart';
 import 'package:appdambar/models/producto_model.dart';
 
@@ -17,6 +18,20 @@ class BarProvider {
     //print(decodedData);
 
     final listaMesas = Mesas.fromJsonList(decodedData);
+
+    return listaMesas.items;
+  }
+
+  Future<List<Comanda>> getComanda(String codmesa) async {
+    final String url_peticion = '/dambar/comanda/' + codmesa + '/bycodmesa';
+
+    final url = Uri.http(urlmain, url_peticion);
+    final resp = await http.get(url);
+    final decodedData = json.decode(resp.body);
+
+    //print(decodedData);
+
+    final listaMesas = Comandas.fromJsonList(decodedData);
 
     return listaMesas.items;
   }
@@ -42,7 +57,7 @@ class BarProvider {
     final url = Uri.http(urlmain, url_peticion);
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
-    print(decodedData);
+    //print(decodedData);
 
     final listaProductos = Productos.fromJsonList(decodedData);
 

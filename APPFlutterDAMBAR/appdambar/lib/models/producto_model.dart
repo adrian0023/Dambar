@@ -29,13 +29,30 @@ class Producto {
       this.precio,
       this.stock,
       this.tipo});
+  factory Producto.fromJson(dynamic json) {
+    var foto;
+    if (json['foto'] == null) {
+      foto = 'https://i.ibb.co/0Jmshvb/no-image.png';
+    } else {
+      foto = json['foto'];
+    }
+    return Producto(
+      id: json['id'] as int?,
+      descripcion: json['descripcion'] as String?,
+      foto: json['foto'] as String?,
+      nombre: json['nombre'] as String?,
+      precio: json['precio'] as double?,
+      stock: json['stock'] as int?,
+      tipo: json['tipo'] as String?,
+    );
+  }
 
   Producto.fromJsonMap(Map<String, dynamic> json) {
     id = json['id'];
     descripcion = json['descripcion'];
     foto = json['foto'];
     nombre = json['nombre'];
-    precio = json['price'];
+    precio = json['precio'];
     stock = json['stock'];
     tipo = json['tipo'];
   }

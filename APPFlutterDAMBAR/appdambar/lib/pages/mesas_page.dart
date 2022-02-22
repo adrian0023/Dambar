@@ -10,7 +10,7 @@ class mesasPage extends StatefulWidget {
 class _mesasPageState extends State<mesasPage> {
   @override
   late List<dynamic> locmesas;
-  var mesa = "";
+  String mesa = "";
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
@@ -39,7 +39,7 @@ class _mesasPageState extends State<mesasPage> {
 
     return FutureBuilder(
         future: barprovider.getinfoMesas(),
-        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
             return _tarjetasmesas(snapshot.data!);
           } else {
@@ -56,7 +56,7 @@ class _mesasPageState extends State<mesasPage> {
 
     return FutureBuilder(
         future: barprovider.getinfoProductoAgotado(),
-        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
             return _productosagotados(snapshot.data!);
           } else {
@@ -83,10 +83,6 @@ class _mesasPageState extends State<mesasPage> {
                 itemBuilder: (BuildContext context, int index) {
                   final est = mesas[index].estado.toString();
                   String cod = mesas[index].codMesa.toString();
-                  final comandasloc = mesas[index].getcomandas();
-                  for (var i = 0; i < comandasloc.length; i++) {
-                    print(comandasloc[i].getcodComanda().toString());
-                  }
                   if (est != null) {
                     if (est == "true") {
                       colorest = Colors.red;
@@ -151,7 +147,6 @@ class _mesasPageState extends State<mesasPage> {
                                 height: 10,
                               )),
                         ),
-                        
                         Image(
                           image: NetworkImage(imgprod),
                           alignment: Alignment.topRight,

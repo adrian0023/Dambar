@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'DamBar',
-        initialRoute: 'productos',
+        initialRoute: 'mesas',
         routes: {
           'mesas': (BuildContext context) => mesasPage(),
-          'productos': (BuildContext context) => productoPage(),
-          //'comanda': (BuildContext context) => comandaPage()
+          //'productos': (BuildContext context) => productoPage(),
+          'comanda': (BuildContext context) => comandaPage()
         });
   }
 }

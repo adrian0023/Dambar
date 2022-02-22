@@ -15,13 +15,21 @@ class LineaComandas {
 class LineaComanda {
   int? codComanda;
   int? cantidad;
-  Producto? producto;
+  dynamic producto;
 
   LineaComanda({this.codComanda, this.cantidad, this.producto});
 
   LineaComanda.fromJsonMap(Map<String, dynamic> json) {
-    codComanda = json['id'];
-    producto = json['productos'];
+    codComanda = json['id_comanda'];
     cantidad = json['cantidad'];
+    print(json['productos']);
+    if (json['productos'] != null) {
+      producto = (Producto.fromJson(json['productos'])) as Producto?;
+      print("producto");
+    }
+  }
+
+  getproducto() {
+    return producto;
   }
 }

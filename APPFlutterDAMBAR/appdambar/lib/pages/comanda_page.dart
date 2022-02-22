@@ -7,6 +7,7 @@ import 'package:appdambar/models/lineacomanda_model.dart';
 import 'package:appdambar/models/mesa_model.dart';
 import 'package:appdambar/models/producto_model.dart';
 import 'package:appdambar/pages/productos_page.dart';
+import 'package:appdambar/providers/bar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -20,20 +21,12 @@ class _comandaPageState extends State<comandaPage> {
   Widget build(BuildContext context) {
     //inicializacion de las partes de la mesa
     Mesa mesa = ModalRoute.of(context)!.settings.arguments as Mesa;
-    List<Comanda>? comanda = mesa.comandas;
+    var codmesa = mesa.codMesa;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 10,
-        toolbarHeight: 100,
-        centerTitle: true,
-        backgroundColor: Colors.amber[50],
-        title: Image(
-          image: AssetImage('assets/img/LogoApp.PNG'),
-        ),
-      ),
       body: Column(
         children: [
-          Expanded(),
+          _banner(),
+          _crearcomandas(codmesa.toString()),
           RaisedButton(
             disabledColor: Colors.blueAccent,
             child: Text("Añadir productos"),
@@ -61,17 +54,12 @@ class _comandaPageState extends State<comandaPage> {
   }
 
   Widget _banner() {
-    return (Image(
+    return (const Image(
       image: AssetImage('assets/img/LogoApp.PNG'),
     ));
   }
 
-  /*Widget _numeroMesa() {
-    return (Text('Mesa: ${comanda.codMesa}'));
-  }*/
-
   Widget _botonCuenta() {
-    // ignore: deprecated_member_use
     return FlatButton(
       disabledColor: Colors.blueAccent,
       child: Text("Cuenta"),
@@ -80,6 +68,59 @@ class _comandaPageState extends State<comandaPage> {
       onPressed: () {
         print("Enviamos cuenta");
       },
+    );
+  }
+
+  borrarlinea() {
+    final barprovider = BarProvider();
+  }
+
+  Widget _crearcomandas(String codmesa) {
+    final barprovider = BarProvider();
+
+    return FutureBuilder(
+        future: barprovider.getComanda(codmesa),
+        builder: (BuildContext context, AsyncSnapshot<List<Comanda>> snapshot) {
+          print(snapshot.data);
+          if (snapshot.hasData) {
+            return comandas(snapshot.data!);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
+  }
+
+  Widget comandas(List<dynamic> comanda) {
+    return Expanded(
+      child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: comanda.length,
+          itemBuilder: (BuildContext context, int index) {
+            List<dynamic>? listccom = comanda[index].lineaComanda;
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: listccom!.length,
+                itemBuilder: (BuildContext context, int index2) {
+                  dynamic producto = listccom[0].getproducto();
+                  var nombre = "raul";
+                  return Dismissible(
+                    key: ValueKey(nombre + index2.toString()),
+                    child: Card(
+                      elevation: 3,
+                      color: Colors.grey,
+                      child: Text(
+                        nombre,
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    onDismissed: borrarlinea(),
+                  );
+                });
+          }),
     );
   }
 }

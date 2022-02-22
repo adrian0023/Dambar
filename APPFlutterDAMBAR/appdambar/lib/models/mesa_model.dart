@@ -6,8 +6,8 @@ class Mesas {
   Mesas.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
     for (var item in jsonList) {
-      final comanda = new Mesa.fromJsonMap(item);
-      items.add(comanda);
+      final mesa = new Mesa.fromJsonMap(item);
+      items.add(mesa);
     }
   }
 }
@@ -15,19 +15,10 @@ class Mesas {
 class Mesa {
   int? codMesa;
   bool? estado;
-  List<Comanda>? comandas;
-  Mesa({this.codMesa, this.estado, this.comandas});
+  Mesa({this.codMesa, this.estado});
 
   Mesa.fromJsonMap(Map<String, dynamic> json) {
     codMesa = json['codMesa'];
     estado = json['estado'];
-    if (json['comandas'] != null) {
-      comandas =
-          (Comandas.fromJsonList(json['comandas']).items) as List<Comanda>?;
-    }
-  }
-
-  List<Comanda>? getcomandas() {
-    return this.comandas;
   }
 }
